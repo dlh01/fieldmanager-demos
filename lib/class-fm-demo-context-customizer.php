@@ -102,6 +102,7 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 				),
 				'control_args' => array(
 					'section' => 'title_tagline',
+					'priority' => 200,
 				),
 			) );
 		}
