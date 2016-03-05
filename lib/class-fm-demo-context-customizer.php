@@ -119,7 +119,7 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 					z-index: 10000000;
 				">
 					<p>Greetings from the Fieldmanager Customizer demos.</p>
-					<p>The values you see below are controlled by the fields under "Fieldmanager Text Field Demos." Try changing them to see the results.</p>
+					<p>The values you see below are controlled by "Fieldmanager Text Field" and "Fieldmanager Group" sections in the Customizer. Try changing them to see the results.</p>
 					<ul>
 						<li>Text Field (using "refresh" transport): <?php echo esc_html( get_option( 'basic_text' ) ); ?></li>
 						<li>Group (using "postMessage" transport):
