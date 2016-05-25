@@ -31,7 +31,7 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 
 		public function customizer_init() {
 			$fm = new Fieldmanager_Textfield( array( 'name' => 'basic_text' ) );
-			$fm->add_customizer_section( array(
+			$fm->add_to_customizer( array(
 				'section_args' => array(
 					'priority' => 10,
 					'title' => 'Fieldmanager Text Field',
@@ -52,7 +52,7 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 					'richtextarea' => new Fieldmanager_RichTextArea( 'Rich Text Area' ),
 				)
 			) );
-			$fm->add_customizer_section( array(
+			$fm->add_to_customizer( array(
 				'section_args' => array(
 					'capability'     => 'edit_posts',
 					'description'    => 'A Fieldmanager demo section',
@@ -65,7 +65,19 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 				),
 			) );
 
-			add_action( 'wp_footer', array( $this, 'wp_footer' ) );
+			add_action( 'wp_footer', array( $this, 'wp_footer' ), 100 );
+
+			$fm = new Fieldmanager_Group( array(
+				'name' => 'contact_methods',
+				'children' => array(
+					'twitter_handle'   => new Fieldmanager_TextField( __( 'Twitter Handle', 'cgs' ) ),
+					'facebook_url'     => new Fieldmanager_Link( __( 'Facebook URL', 'cgs' ) ),
+					'instagram_handle' => new Fieldmanager_TextField( __( 'Instagram Handle', 'cgs' ) ),
+					'youtube_url'      => new Fieldmanager_Link( __( 'YouTube URL', 'cgs' ) ),
+					'flipboard_url'    => new Fieldmanager_Link( __( 'Flipboard URL', 'cgs' ) ),
+				),
+			) );
+			$fm->add_to_customizer( 'Contact Methods' );
 
 			$fm = new Fieldmanager_Group( array(
 				'name'           => 'repeatable_text',
@@ -90,9 +102,10 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 					) ),
 				)
 			) );
-			$fm->add_customizer_section( array(
+			$fm->add_to_customizer( array(
 				'section_args' => array(
-					'title' => 'Fieldmanager Miscellaneous Fields'
+					'title' => 'Fieldmanager Miscellaneous Fields',
+					'panel' => 'fm_demos',
 				),
 				'control_args' => array(
 					'section' => 'title_tagline',
@@ -138,26 +151,36 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 					</ul>
 				</div>
 				<script>
-					if ( wp.customize ) {
-						wp.customize( 'option_fields', function ( value ) {
-							value.bind( function ( to ) {
-								for ( var key in to ) {
-									if ( to.hasOwnProperty( key ) ) {
-										document
-											.getElementById( 'fm-postmessage-' + key )
-											.textContent = to[ key ];
-									}
-								}
+					(function() {
+						var intervalID = setInterval(function() {
+							if ( wp.customize ) {
+								preview();
+							}
+						}, 500 );
 
-								// Handle checkbox.
-								if ( ! to.hasOwnProperty( 'checkbox' ) ) {
-									document
-										.getElementById( 'fm-postmessage-checkbox' )
-										.textContent = '';
-								}
+						function preview() {
+							wp.customize( 'option_fields', function ( value ) {
+								value.bind( function ( to ) {
+									for ( var key in to ) {
+										if ( to.hasOwnProperty( key ) ) {
+											document
+												.getElementById( 'fm-postmessage-' + key )
+												.textContent = to[ key ];
+										}
+									}
+
+									// Handle checkbox.
+									if ( ! to.hasOwnProperty( 'checkbox' ) ) {
+										document
+											.getElementById( 'fm-postmessage-checkbox' )
+											.textContent = '';
+									}
+								});
 							});
-						});
-					}
+
+							clearInterval( intervalID );
+						}
+					})();
 				</script>
 			<?php
 		}
