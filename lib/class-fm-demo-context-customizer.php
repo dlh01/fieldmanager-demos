@@ -112,6 +112,14 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 					'priority' => 200,
 				),
 			) );
+
+			$fm = new Fieldmanager_TextField( 'Field Requiring Numeric Values', array(
+				'name' => 'validated_text',
+				'description' => 'Try typing "Cowbell" and saving your changes.',
+				'validate' => array( 'is_numeric' ),
+				'sanitize' => 'intval',
+			) );
+			$fm->add_to_customizer( 'Fieldmanager Validated Fields' );
 		}
 
 		/**
