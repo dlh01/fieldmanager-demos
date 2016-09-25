@@ -129,6 +129,8 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 			if ( ! is_customize_preview() ) {
 				return;
 			}
+
+			$option_fields = get_theme_mod( 'option_fields' );
 			?>
 				<div id="fm-demo-customizer" style="
 					background-color: #000;
@@ -145,15 +147,15 @@ if ( ! class_exists( 'FM_Demo_Context_Customizer' ) ) :
 						<li>Text Field (using "refresh" transport): <?php echo esc_html( get_option( 'basic_text' ) ); ?></li>
 						<li>Group (using "postMessage" transport):
 							<ul>
-								<li>Text Field:                <span id="fm-postmessage-text"></span></li>
-								<li>Autocomplete:              <span id="fm-postmessage-autocomplete"></span></li>
-								<li>Autocomplete without ajax: <span id="fm-postmessage-local_data"></span></li>
-								<li>TextArea:                  <span id="fm-postmessage-textarea"></span></li>
-								<li>Media File:                <span id="fm-postmessage-media"></span></li>
-								<li>Checkbox:                  <span id="fm-postmessage-checkbox"></span></li>
-								<li>Radio Buttons:             <span id="fm-postmessage-radios"></span></li>
-								<li>Select Dropdown:           <span id="fm-postmessage-select"></span></li>
-								<li>Rich Text Area:            <span id="fm-postmessage-richtextarea"></span></li>
+								<li>Text Field:                <span id="fm-postmessage-text"><?php echo ( isset( $option_fields['text'] ) ) ? esc_html( $option_fields['text'] ) : '' ?></span></li>
+								<li>Autocomplete:              <span id="fm-postmessage-autocomplete"><?php echo ( isset( $option_fields['autocomplete'] ) ) ? esc_html( $option_fields['autocomplete'] ) : '' ?></span></li>
+								<li>Autocomplete without ajax: <span id="fm-postmessage-local_data"><?php echo ( isset( $option_fields['local_data'] ) ) ? esc_html( $option_fields['local_data'] ) : '' ?></span></li>
+								<li>TextArea:                  <span id="fm-postmessage-textarea"><?php echo ( isset( $option_fields['textarea'] ) ) ? esc_html( $option_fields['textarea'] ) : '' ?></span></li>
+								<li>Media File:                <span id="fm-postmessage-media"><?php echo ( isset( $option_fields['media'] ) ) ? esc_html( $option_fields['media'] ) : '' ?></span></li>
+								<li>Checkbox:                  <span id="fm-postmessage-checkbox"><?php echo ( isset( $option_fields['checkbox'] ) ) ? esc_html( $option_fields['checkbox'] ) : '' ?></span></li>
+								<li>Radio Buttons:             <span id="fm-postmessage-radios"><?php echo ( isset( $option_fields['radios'] ) ) ? esc_html( $option_fields['radios'] ) : '' ?></span></li>
+								<li>Select Dropdown:           <span id="fm-postmessage-select"><?php echo ( isset( $option_fields['select'] ) ) ? esc_html( $option_fields['select'] ) : '' ?></span></li>
+								<li>Rich Text Area:            <span id="fm-postmessage-richtextarea"><?php echo ( isset( $option_fields['richtextarea'] ) ) ? esc_html( $option_fields['richtextarea'] ) : '' ?></span></li>
 							</ul>
 						</li>
 					</ul>
